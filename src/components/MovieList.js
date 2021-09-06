@@ -10,38 +10,42 @@ function MovieList() {
   const dataList = useSelector((state) => state.movie.list);
   const paging = useSelector((state) => state.movie.paging);
   const observedElement = useRef(null);
+  const loader = useRef(null);
 
   const loadHandler = () => {
     dispatch(load(paging.start, 6));
   };
 
-  const observer = new IntersectionObserver(
+  loader.current = loadHandler; //추가코드
+
+  const observer = useRef(new IntersectionObserver( // 추가한 코드
     (entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          loadHandler();
+          loader.current(); // 추가코드 (메모리 최적화)
         }
       });
     },
     { threshold: 1 }
-  );
+  ));
 
   useEffect(() => {
     
     const currentObservedElement = observedElement.current;
+    const currentObserver = observer.current; //추가코드
     if (isLoading) {
       return;
     }
     if (currentObservedElement) {
-      observer.observe(currentObservedElement);
+      currentObserver.observe(currentObservedElement);
     }
 
     return () => {
       if (currentObservedElement) {
-        observer.unobserve(currentObservedElement);
+        currentObserver.unobserve(currentObservedElement);
       }
     };
-  }, [observedElement?.current, observer]);
+  }, [observedElement?.current, observer?.current]);
 
   return (
     <ul className={classes.container}>
