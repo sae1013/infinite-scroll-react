@@ -13,8 +13,9 @@ function MovieList() {
   const paging = useSelector((state) => state.movie.paging);
   const observedElement = useRef(null);
 
+
   return (
-    <InfiniteScroll ref = {observedElement} isLoading={isLoading} paging={paging}>
+    <InfiniteScroll ref = {observedElement} isLoading={isLoading} paging={paging} size = {6} onLoad={load}>
       <ul className={classes.container}>
         {dataList.map((movie) => (
           <MovieItem

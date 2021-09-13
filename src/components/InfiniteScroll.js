@@ -7,15 +7,20 @@ function InfiniteScroll(props, ref) {
   const dispatch = useDispatch();
   const isLoading = props.isLoading;
   const paging = props.paging;
-  
+  const size = props.size;
+  const onLoad = props.onLoad;
+
   const loader = useRef(null);
   const observedElement = ref;
 
+  
   const loadHandler = () => {
-    dispatch(load(paging.start, 6));
+    dispatch(onLoad(paging.start,size))
+    // dispatch(load(paging.start, 6)); 
+    
   };
-
-  loader.current = loadHandler;
+  
+  loader.current = loadHandler; // 로더의 current에 항상 새로운 함수를 넣어준다.
 
   const observer = useRef(
     new IntersectionObserver(
