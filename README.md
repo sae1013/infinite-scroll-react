@@ -1,5 +1,5 @@
 
-## Observer Intersction 을 활용한 무한스크롤 로더 입니다.(debounce를 사용한 ScrollEvent 감지의 browser 리플로우문제 개선)
+## Observer Intersection 을 활용한 무한스크롤 로더 입니다.(debounce를 사용한 ScrollEvent 감지의 browser 리플로우문제 개선)
 <br>
 ## 사용 예제 (핵심코드)
 
